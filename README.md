@@ -1,2 +1,2 @@
-# iyzico-case-study
-Iyzico Case Study
+# Iyzico Case Study
+Iyzico Case Study - Harun UYSAL
