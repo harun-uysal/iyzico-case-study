@@ -1,0 +1,101 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">×</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">    
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input_status">{{ entry_status }}</label>
+            <div class="col-sm-4">
+              <select name="module_iyzico_case_status" id="input_status" class="form-control">
+                {% if status == "1" %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input_api_key">{{ entry_api_key }}</label>
+            <div class="col-sm-4">
+                <input type="text" name="module_iyzico_case_api_key" value="{{ api_key }}" id="input_api_key" class="form-control" />
+            </div>
+          </div>
+           <div class="form-group">
+            <label class="col-sm-2 control-label" for="input_secret_key">{{ entry_secret_key }}</label>
+            <div class="col-sm-4">
+                <input type="text" name="module_iyzico_case_secret_key" value="{{ secret_key }}" id="input_secret_key" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input_shape">{{ entry_shape }}</label>
+            <div class="col-sm-4">
+              <select name="module_iyzico_case_button[shape]" id="input_shape" class="form-control">
+                {% for key,button_shape in button_shapes %}
+                {% if (button_shape == button['shape']) %}
+                <option value="{{ button_shape }}" selected="selected">{{ key }}</option>
+                {% else %}
+                <option value="{{ button_shape }}">{{ key }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input_color">{{ entry_color }}</label>
+            <div class="col-sm-4">
+              <select name="module_iyzico_case_button[color]" id="input_color" class="form-control">
+                {% for key,button_color in button_colors %}
+                {% if (button_color == button['color']) %}
+                <option value="{{ button_color }}" selected="selected">{{ key }}</option>
+                {% else %}
+                <option value="{{ button_color }}">{{ key }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input_tagline">{{ entry_tagline }}</label>
+            <div class="col-sm-4">
+              <select name="module_iyzico_case_button[tagline]" id="input_tagline" class="form-control">
+                {% for key,button_tagline in button_taglines %}
+                {% if (button_tagline == button['tagline']) %}
+                <option value="{{ button_tagline }}" selected="selected">{{ key }}</option>
+                {% else %}
+                <option value="{{ button_tagline }}">{{ key }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{{ footer }}

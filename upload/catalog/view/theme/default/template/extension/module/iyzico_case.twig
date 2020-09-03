@@ -1,0 +1,51 @@
+<script src="https://static.iyzipay.com/plugins/v1/iyzico-buttons.min.js"></script>
+<script>
+window.onload = function() {
+	setupIyzicoButton();
+};
+
+function setupIyzicoButton() {
+    
+	if ($('{{ insert_tag }}').length) {
+		$('{{ insert_tag }}').{{ insert_type }}('<div class="form-group"><div id="iyzico-button" class="buttons clearfix"></div></div>');
+        new iyzico.buttons({
+            style:
+            {
+                color:   "{{ button['color'] }}",
+                shape:   "{{ button['shape'] }}",
+                tagline: "{{ button['tagline'] }}"
+            },
+            onSubmit: function()
+            {
+                $.ajax({
+                    method: 'post',
+                    url: 'index.php?route=extension/module/iyzico_case/createOrder',
+                    data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+                    dataType: 'json',
+                    async: false,
+                    success: function(json) {	
+                        showIyzicoErrorAlert(json);                       	
+                        if(json['url'])
+                        {
+                            console.log(json['url']);
+                            location = json['url'];
+                        }            
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+            }
+        });
+    }
+}
+
+function showIyzicoErrorAlert(json)
+{			
+	if (json['error'])
+    {
+        alert(json['error']);
+    }
+}
+
+</script>
